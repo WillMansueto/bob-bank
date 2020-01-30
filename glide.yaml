@@ -1,0 +1,9 @@
+package: bob-bank
+import:
+- package: github.com/badoux/checkmail
+- package: github.com/dgrijalva/jwt-go
+- package: github.com/gorilla/mux
+- package: github.com/lib/pq
+- package: golang.org/x/crypto
+  subpackages:
+  - bcrypt
