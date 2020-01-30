@@ -34,7 +34,9 @@ func IsAuth(handler func(http.ResponseWriter, *http.Request)) http.HandlerFunc {
 					handler(w, r)
 				}
 			}
+		} else {
+			w.WriteHeader(http.StatusUnauthorized)
+			fmt.Fprintf(w, "Unauthorized")
 		}
-		fmt.Fprintf(w, "Unauthorized")
 	})
 }
