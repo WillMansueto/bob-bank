@@ -4,6 +4,7 @@ import(
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 
 	"bob-bank/config"
 
@@ -12,10 +13,18 @@ import(
 
 var configs = config.LoadConfigs()
 
+const DEV = false
+
 func Connect() *sql.DB {
 	URL := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=%s", configs.Database.User, 
 	configs.Database.Pass, configs.Database.Name, "disable")
-	db, err := sql.Open("postgres", URL)
+	var db *sql.DB
+	var err error
+	if DEV {
+		db, err = sql.Open("postgres", URL)
+	} else {
+		db, err = sql.Open("postgres", os.Getenv("DATABASE_URL"))
+	}
 	if err != nil{
 		log.Fatal(err)
 		return nil

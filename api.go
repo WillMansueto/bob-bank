@@ -3,6 +3,7 @@ package main
 import(
 	"fmt"
 	"log"
+	"os"
 	"net/http"
 	
 	"bob-bank/routes"
@@ -10,7 +11,10 @@ import(
 )
 
 func main(){
-	port := "3000"
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3000"
+	}
 	models.TestConnection()
 	fmt.Printf("Api running on port %s\n", port)
 	r := routes.NewRouter()
